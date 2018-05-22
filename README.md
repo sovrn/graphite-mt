@@ -52,8 +52,6 @@ Additional environment variables can be set to adjust performance.
 - `GRAPHITE_LOG_ROTATION`: (true) rotate logs
 - `GRAPHITE_LOG_ROTATION_COUNT`: (1) number of logs to keep
 - `GRAPHITE_MAX_FETCH_RETRIES`: (2) Number of retries for a specific remote data fetch
-- `GRAPHITE_POOL_WORKERS`: (1) A baseline number of workers that should always be created
-- `GRAPHITE_POOL_WORKERS_PER_BACKEND`: (8) The number of worker threads that should be created per backend server
 - `GRAPHITE_REMOTE_FETCH_TIMEOUT`: (60) Timeout to fetch series data
 - `GRAPHITE_REMOTE_FIND_TIMEOUT`: (30) Timeout for metric find requests
 - `GRAPHITE_REMOTE_RETRY_DELAY`: (10) Time before retrying a failed remote webapp

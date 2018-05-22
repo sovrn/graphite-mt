@@ -147,13 +147,6 @@ REMOTE_STORE_MERGE_RESULTS = True
 # when making a request to a remote webapp server in CLUSTER_SERVERS
 REMOTE_STORE_FORWARD_HEADERS = ["x-org-id"] # An iterable of HTTP header names
 
-## Prefetch cache
-# set to True to fetch all metrics using a single http request per remote server
-# instead of one http request per target, per remote server.
-# Especially useful when generating graphs with more than 4-5 targets or if
-# there's significant latency between this server and the backends.
-REMOTE_PREFETCH_DATA = True
-
 STORAGE_FINDERS = (
     'graphite.finders.remote.RemoteFinder',
 )
