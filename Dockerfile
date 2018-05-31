@@ -48,8 +48,6 @@ ADD root /
 
 # expose ports
 EXPOSE 80
-EXPOSE 8080
-EXPOSE 8181
 
 # set up environment variables
 ENV \
@@ -57,9 +55,6 @@ ENV \
 	TSDB_URL= \
 	GUNICORN_WORKERS=4 \
 	GRAPHITE_CLUSTER_SERVERS=127.0.0.1:8181
-
-# check api key validity as health check
-HEALTHCHECK --interval=5m --timeout=10s --start-period=10s --retries=3 CMD curl https://grafana.com/api/api-keys/check -d "token=${TSDB_KEY}"
 
 # start services, using source to avoid an extra child process
 CMD source /run.sh

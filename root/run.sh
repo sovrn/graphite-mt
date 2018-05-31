@@ -1,6 +1,6 @@
 #!/bin/ash
 
-trap exit INT TERM KILL QUIT
+trap exit INT TERM KILL HUP QUIT
 
 set -o notify
 set -o errexit
@@ -16,19 +16,25 @@ export GRAPHITE_WSGI_VIRTUAL_MEMORY_LIMIT=${GRAPHITE_WSGI_VIRTUAL_MEMORY_LIMIT:-
 export GRAPHITE_WSGI_MAX_REQUESTS=${GRAPHITE_WSGI_MAX_REQUESTS:-1000}
 
 graphite-web-proxy \
-  -logtostderr \
-  -tsdb-url $TSDB_URL \
-  -api-key $TSDB_KEY &
+    -logtostderr \
+    -tsdb-url $TSDB_URL \
+    -api-key $TSDB_KEY \
+  &
 
 PYTHONPATH=/opt/graphite/webapp gunicorn \
-  wsgi \
-  -u graphite \
-  -g graphite \
-  --workers=$GUNICORN_WORKERS \
-  --bind=0.0.0.0:8080 \
-  --preload \
-  --pythonpath=/opt/graphite/webapp/graphite &
+    wsgi \
+    -u graphite \
+    -g graphite \
+    --workers=$GUNICORN_WORKERS \
+    --bind=127.0.0.1:8080 \
+    --preload \
+    --pythonpath=/opt/graphite/webapp/graphite \
+  &
 
-caddy -http2 -quic -conf /Caddyfile &
+caddy \
+    -http2 \
+    -quic \
+    -conf /Caddyfile \
+  &
 
 wait
